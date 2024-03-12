@@ -1,4 +1,4 @@
-package repository
+package controller
 
 import (
 	"database/sql"
@@ -11,6 +11,13 @@ type Kategori struct {
 	NamaKategori string `json:"nama_kategori"`
 }
 
+// Get All Kategori
+// @Summary Get all kategori
+// @Description Get all kategori buku
+// @Produce json
+// @Success 200 {array} Kategori
+// @Router /kategori [get]
+// @Tags kategori
 func GetAllKategori(c *gin.Context) {
 	rows, err := DB.Query("SELECT * FROM kategori_buku")
 	if err != nil {
@@ -31,6 +38,15 @@ func GetAllKategori(c *gin.Context) {
 	c.JSON(200, kategoris)
 
 }
+
+// Get Kategori by id
+// @Summary Get kategori by id
+// @Description Get kategori by id
+// @Produce json
+// @Param id path int true "Kategori ID"
+// @Success 200 {object} Kategori
+// @Router /kategori/{id} [get]
+// @Tags kategori
 func GetKategoriById(c *gin.Context) {
 	rows := DB.QueryRow("SELECT * FROM kategori_buku WHERE id = ?", c.Param("id"))
 	var kategori Kategori
@@ -46,6 +62,16 @@ func GetKategoriById(c *gin.Context) {
 	c.JSON(200, kategori)
 
 }
+
+// Create Kategori
+// @Summary Create kategori
+// @Description Create kategori
+// @Accept json
+// @Produce json
+// @Param kategori body Kategori true "Kategori"
+// @Success 201 {object} Kategori
+// @Router /kategori [post]
+// @Tags kategori
 func CreateKategori(c *gin.Context) {
 	var kategori Kategori
 	err := c.BindJSON(&kategori)
@@ -62,6 +88,16 @@ func CreateKategori(c *gin.Context) {
 	c.JSON(201, result)
 }
 
+// Update Kategori
+// @Summary Update kategori
+// @Description Update kategori
+// @Accept json
+// @Produce json
+// @Param id path int true "Kategori ID"
+// @Param kategori body Kategori true "Kategori"
+// @Success 200 {object} Kategori
+// @Router /kategori/{id} [put]
+// @Tags kategori
 func UpdateKategori(c *gin.Context) {
 	var kategori Kategori
 	err := c.BindJSON(&kategori)
@@ -78,6 +114,14 @@ func UpdateKategori(c *gin.Context) {
 	c.JSON(200, result)
 }
 
+// Delete Kategori
+// @Summary Delete kategori
+// @Description Delete kategori
+// @Produce json
+// @Param id path int true "Kategori ID"
+// @Success 200 {object} Kategori
+// @Router /kategori/{id} [delete]
+// @Tags kategori
 func DeleteKategori(c *gin.Context) {
 	result, err := DB.Exec("DELETE FROM kategori_buku WHERE id = ?", c.Param("id"))
 	if err != nil {

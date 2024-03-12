@@ -1,4 +1,4 @@
-package repository
+package controller
 
 import (
 	"database/sql"
@@ -10,6 +10,14 @@ type Rak struct {
 	Id      int    `json:"id"`
 	NamaRak string `json:"nama_rak"`
 }
+
+// Get All Rak
+// @Summary Get all rak
+// @Description Get all rak
+// @Produce json
+// @Success 200 {array} Rak
+// @Router /rak [get]
+// @Tags rak
 
 func GetAllRak(c *gin.Context) {
 	rows, err := DB.Query("SELECT * FROM rak")
@@ -31,6 +39,14 @@ func GetAllRak(c *gin.Context) {
 	c.JSON(200, raks)
 }
 
+// Get Rak by id
+// @Summary Get rak by id
+// @Description Get rak by id
+// @Produce json
+// @Param id path int true "Rak ID"
+// @Success 200 {object} Rak
+// @Router /rak/{id} [get]
+// @Tags rak
 func GetRakById(c *gin.Context) {
 	rows := DB.QueryRow("SELECT * FROM rak WHERE id = ?", c.Param("id"))
 	var rak Rak
@@ -46,6 +62,15 @@ func GetRakById(c *gin.Context) {
 	c.JSON(200, rak)
 }
 
+// Create Rak
+// @Summary Create rak
+// @Description Create rak
+// @Accept json
+// @Produce json
+// @Param rak body Rak true "Rak"
+// @Success 201 {object} Rak
+// @Router /rak [post]
+// @Tags rak
 func CreateRak(c *gin.Context) {
 	var rak Rak
 	err := c.BindJSON(&rak)
@@ -67,6 +92,16 @@ func CreateRak(c *gin.Context) {
 	c.JSON(201, rak)
 }
 
+// Update Rak
+// @Summary Update rak
+// @Description Update rak
+// @Accept json
+// @Produce json
+// @Param id path int true "Rak ID"
+// @Param rak body Rak true "Rak"
+// @Success 200 {object} Rak
+// @Router /rak/{id} [put]
+// @Tags rak
 func UpdateRak(c *gin.Context) {
 	var rak Rak
 	err := c.BindJSON(&rak)
@@ -91,6 +126,14 @@ func UpdateRak(c *gin.Context) {
 	c.JSON(200, rak)
 }
 
+// Delete Rak
+// @Summary Delete rak
+// @Description Delete rak
+// @Produce json
+// @Param id path int true "Rak ID"
+// @Success 200 {object} Rak
+// @Router /rak/{id} [delete]
+// @Tags rak
 func DeleteRak(c *gin.Context) {
 	result, err := DB.Exec("DELETE FROM rak WHERE id = ?", c.Param("id"))
 	if err != nil {

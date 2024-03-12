@@ -1,0 +1,381 @@
+basePath: /
+definitions:
+  controller.Buku:
+    properties:
+      cover:
+        type: string
+      created_at:
+        type: string
+      deskripsi:
+        type: string
+      id:
+        type: integer
+      id_kategori:
+        type: integer
+      id_rak:
+        type: integer
+      jml_hal:
+        type: integer
+      judul:
+        type: string
+      nama_kategori:
+        type: string
+      nama_rak:
+        type: string
+      penerbit:
+        type: string
+      penulis:
+        type: string
+      tahun_terbit:
+        type: string
+    type: object
+  controller.Kategori:
+    properties:
+      id:
+        type: integer
+      nama_kategori:
+        type: string
+    type: object
+  controller.Rak:
+    properties:
+      id:
+        type: integer
+      nama_rak:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Backend Perpustakaan Digital
+  title: PerpusDigital
+  version: "0.6"
+paths:
+  /buku:
+    get:
+      consumes:
+      - application/json
+      description: Get all buku
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controller.Buku'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all buku
+      tags:
+      - buku
+    post:
+      consumes:
+      - application/json
+      description: Create buku
+      parameters:
+      - description: Cover buku
+        in: formData
+        name: cover
+        required: true
+        type: file
+      - description: ID Kategori
+        in: formData
+        name: id_kategori
+        required: true
+        type: integer
+      - description: ID Rak
+        in: formData
+        name: id_rak
+        required: true
+        type: integer
+      - description: Judul buku
+        in: formData
+        name: judul
+        required: true
+        type: string
+      - description: Penulis buku
+        in: formData
+        name: penulis
+        required: true
+        type: string
+      - description: Penerbit buku
+        in: formData
+        name: penerbit
+        required: true
+        type: string
+      - description: Tahun terbit buku
+        in: formData
+        name: tahun_terbit
+        required: true
+        type: string
+      - description: Jumlah halaman buku
+        in: formData
+        name: jml_hal
+        required: true
+        type: integer
+      - description: Deskripsi buku
+        in: formData
+        name: deskripsi
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/controller.Buku'
+      summary: Create buku
+      tags:
+      - buku
+  /buku/{id}:
+    delete:
+      description: Delete buku
+      parameters:
+      - description: Buku ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Buku'
+      summary: Delete buku
+      tags:
+      - buku
+    get:
+      description: Get buku by id
+      parameters:
+      - description: Buku ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Buku'
+      summary: Get buku by id
+      tags:
+      - buku
+    put:
+      consumes:
+      - application/json
+      description: Update buku
+      parameters:
+      - description: Buku ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Buku
+        in: body
+        name: buku
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Buku'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Buku'
+      summary: Update buku
+      tags:
+      - buku
+  /kategori:
+    get:
+      description: Get all kategori buku
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controller.Kategori'
+            type: array
+      summary: Get all kategori
+      tags:
+      - kategori
+    post:
+      consumes:
+      - application/json
+      description: Create kategori
+      parameters:
+      - description: Kategori
+        in: body
+        name: kategori
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Kategori'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/controller.Kategori'
+      summary: Create kategori
+      tags:
+      - kategori
+  /kategori/{id}:
+    delete:
+      description: Delete kategori
+      parameters:
+      - description: Kategori ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Kategori'
+      summary: Delete kategori
+      tags:
+      - kategori
+    get:
+      description: Get kategori by id
+      parameters:
+      - description: Kategori ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Kategori'
+      summary: Get kategori by id
+      tags:
+      - kategori
+    put:
+      consumes:
+      - application/json
+      description: Update kategori
+      parameters:
+      - description: Kategori ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Kategori
+        in: body
+        name: kategori
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Kategori'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Kategori'
+      summary: Update kategori
+      tags:
+      - kategori
+  /rak:
+    post:
+      consumes:
+      - application/json
+      description: Create rak
+      parameters:
+      - description: Rak
+        in: body
+        name: rak
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Rak'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/controller.Rak'
+      summary: Create rak
+      tags:
+      - rak
+  /rak/{id}:
+    delete:
+      description: Delete rak
+      parameters:
+      - description: Rak ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Rak'
+      summary: Delete rak
+      tags:
+      - rak
+    get:
+      description: Get rak by id
+      parameters:
+      - description: Rak ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Rak'
+      summary: Get rak by id
+      tags:
+      - rak
+    put:
+      consumes:
+      - application/json
+      description: Update rak
+      parameters:
+      - description: Rak ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Rak
+        in: body
+        name: rak
+        required: true
+        schema:
+          $ref: '#/definitions/controller.Rak'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Rak'
+      summary: Update rak
+      tags:
+      - rak
+schemes:
+- http
+swagger: "2.0"
